@@ -644,20 +644,18 @@
                                     <table class="table table-borderless border">
                                         <tbody>
                                             <tr>
-                                                <th>{{translate('Degree')}}</th>
-                                                <th>{{translate('Institution')}}</th>
-                                                <th>{{translate('Start')}}</th>
-                                                <th>{{translate('End')}}</th>
+                                                <th>{{translate('Qualification')}}</th>
+                                                <th>{{translate('Details')}}</th>
+                                                <th>{{translate('Institute')}}</th>
                                                 <th>{{translate('Status')}}</th>
                                             </tr>
                                             @php $educations = \App\Models\Education::where('user_id',$user->id)->get();
                                             @endphp
                                             @foreach ($educations as $key => $education)
                                             <tr>
+                                                <td>{{ $education->type }}</td>
                                                 <td>{{ $education->degree }}</td>
                                                 <td>{{ $education->institution }}</td>
-                                                <td>{{ $education->start }}</td>
-                                                <td>{{ $education->end }}</td>
                                                 <td>
                                                     @if($education->present == 1)
                                                     <span
@@ -696,8 +694,6 @@
                                             <tr>
                                                 <th>{{translate('designation')}}</th>
                                                 <th>{{translate('company')}}</th>
-                                                <th>{{translate('Start')}}</th>
-                                                <th>{{translate('End')}}</th>
                                                 <th>{{translate('Status')}}</th>
                                             </tr>
                                             @php $careers = \App\Models\Career::where('user_id',$user->id)->get();
@@ -706,8 +702,6 @@
                                             <tr>
                                                 <td>{{ $career->designation }}</td>
                                                 <td>{{ $career->company }}</td>
-                                                <td>{{ $career->start }}</td>
-                                                <td>{{ $career->end }}</td>
                                                 <td>
                                                     @if($career->present == 1)
                                                     <span
@@ -760,27 +754,9 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td class="py-1 fw-600">{{ translate('Eye Color') }}</td>
-                                                            <td class="py-1">
-                                                                {{ !empty($user->physical_attributes->eye_color) ? $user->physical_attributes->eye_color : "" }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
                                                             <td class="py-1 fw-600">{{translate('Complexion')}}</td>
                                                             <td class="py-1">
                                                                 {{ !empty($user->physical_attributes->complexion) ? $user->physical_attributes->complexion : "" }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="py-1 fw-600">{{translate('Body Type')}}</td>
-                                                            <td class="py-1">
-                                                                {{ !empty($user->physical_attributes->body_type) ? $user->physical_attributes->body_type : "" }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="py-1 fw-600">{{translate('Disability')}}</td>
-                                                            <td class="py-1">
-                                                                {{ !empty($user->physical_attributes->disability) ? $user->physical_attributes->disability : "" }}
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -795,24 +771,7 @@
                                                                 {{ !empty($user->physical_attributes->weight) ? $user->physical_attributes->weight : "" }}
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td class="py-1 fw-600">{{ translate('Hair Color') }}</td>
-                                                            <td class="py-1">
-                                                                {{ !empty($user->physical_attributes->hair_color) ? $user->physical_attributes->hair_color : "" }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="py-1 fw-600">{{translate('Blood Group')}}</td>
-                                                            <td class="py-1">
-                                                                {{ !empty($user->physical_attributes->blood_group) ? $user->physical_attributes->blood_group : "" }}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="py-1 fw-600">{{translate('Body Art')}}</td>
-                                                            <td class="py-1">
-                                                                {{ !empty($user->physical_attributes->body_art) ? $user->physical_attributes->body_art : "" }}
-                                                            </td>
-                                                        </tr>
+                                                       
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -1103,10 +1062,7 @@
                                                             <th class="py-1">{{translate('Religion')}}</th>
                                                             <td class="py-1">{{ !empty($user->spiritual_backgrounds->religion->name) ? $user->spiritual_backgrounds->religion->name : "" }}</td>
                                                         </tr>
-                                                        <tr>
-                                                            <th class="py-1">{{translate('Sub Caste')}}</th>
-                                                            <td class="py-1">{{ !empty($user->spiritual_backgrounds->sub_caste->name) ? $user->spiritual_backgrounds->sub_caste->name : "" }}</td>
-                                                        </tr>
+                                                       
                                                         <tr>
                                                             <th class="py-1">{{translate('Personal Value')}}</th>
                                                             <td class="py-1">{{ !empty($user->spiritual_backgrounds->personal_value) ? $user->spiritual_backgrounds->personal_value : "" }}</td>

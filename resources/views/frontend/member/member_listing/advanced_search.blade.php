@@ -152,10 +152,10 @@
                           </div>
                         </div>
                     </div>
-                    <h6 class="separator text-left mb-3 fs-12 text-uppercase text-secondary">
+                    <h6 class="separator text-left mb-3 fs-12 text-uppercase text-secondary" hidden>
                         <span class="bg-white pr-3">{{ translate('Member Type') }}</span>
                     </h6>
-                    <div class="aiz-radio-list">
+                    <div class="aiz-radio-list" hidden>
                         <label class="aiz-radio">
                             <input type="radio" name="member_type" value="2" onchange="applyFilter()" @if($member_type == 2) checked @endif > {{ translate('Premium Member') }}
                             <span class="aiz-rounded-check"></span>
