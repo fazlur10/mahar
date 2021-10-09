@@ -56,10 +56,10 @@ Route::post('/currency', 'CurrencyController@changeCurrency')->name('currency.ch
 Route::get('/packages', 'PackageController@select_package')->name('packages');
 Route::get('/happy-stories','HomeController@happy_stories')->name('happy_stories');
 Route::get('/story_details/{id}','HomeController@story_details')->name('story_details');
-
+Route::any('/member-listing', 'HomeController@member_listing')->name('member.listing');
 Route::group(['middleware' => ['member','verified']], function(){
 
-    Route::any('/member-listing', 'HomeController@member_listing')->name('member.listing');
+    #Route::any('/member-listing', 'HomeController@member_listing')->name('member.listing');
 
     Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
     Route::post('/new-user-email', 'HomeController@update_email')->name('user.change.email');

@@ -182,7 +182,7 @@ class HomeController extends Controller
         $max_height     = ($request->max_height != null) ? $request->max_height : null;
         $member_type    = ($request->member_type != null) ? $request->member_type : 0;
 
-
+        if (Auth::check()){
         $users = User::orderBy('created_at', 'desc')
                         ->where('user_type','member')
                         ->where('id', '!=', Auth::user()->id)
@@ -202,7 +202,14 @@ class HomeController extends Controller
             $query->select('ignored_by')
                 ->from('ignored_users')
                 ->where('ignored_by',Auth::user()->id)->orWhere('user_id', Auth::user()->id);});
-
+        }
+        else
+        {
+            $users = User::orderBy('created_at', 'desc')
+                        ->where('user_type','member')
+                        ->where('blocked', 0)
+                        ->where('deactivated',0);
+        }
         // Membership Check
         if($member_type == 1 || $member_type == 2 ){
             $users = $users->where('membership', $member_type);

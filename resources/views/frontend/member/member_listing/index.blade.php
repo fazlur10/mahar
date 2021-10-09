@@ -120,17 +120,20 @@
                                             <div class="row gutters-5 text-center">
                                                 <div class="col">
                                                     <a
-                                                        @if(get_setting('full_profile_show_according_to_membership') == 1 && Auth::user()->membership == 1)
-                                                            href="javascript:void(0);" onclick="package_update_alert()"
-                                                        @else
-                                                            href="{{ route('member_profile', $user->id) }}"
-                                                        @endif
+                                                    @if (Auth::check())
+                                                    href="{{ route('member_profile', $user->id) }}"
+    
+                                                    @else
+                                                    href="javascript:void(0);" onclick="package_update_alert()"
+                                                    @endif
                                                         class="text-reset c-pointer"
                                                     >
                                                         <i class="las la-user fs-20 text-primary"></i>
                                                         <span class="d-block fs-10 opacity-60">{{ translate('Full Profile') }}</span>
                                                     </a>
                                                 </div>
+                                                @if (Auth::check())
+                                                
                                                 <div class="col">
                                                     @php
                                                       $interest_class    = "text-primary";
@@ -230,6 +233,37 @@
                                                       </span>
                                                     </a>
                                                 </div>
+                                                 @else
+                                                 <div class="col">
+                                                    <a id="interest_a_id" class="text-reset c-pointer"
+                                                     href="javascript:void(0);" onclick="package_update_alert()">
+                                                     <i class="la la-heart-o fs-20 text-primary"></i>
+                                                     <span class="d-block fs-10 opacity-60">{{ translate('Interest') }}</span>
+                                                    </a>
+                                                </div>
+                                                <div class="col">
+                                                    <a id="shortlist_a_id" class="text-reset c-pointer"
+                                                     href="javascript:void(0);" onclick="package_update_alert()">
+                                                     <i class="las la-list fs-20 text-primary"></i>
+                                                     <span class="d-block fs-10 opacity-60">{{ translate('Shortlist') }}</span>
+                                                    </a>
+                                                </div>
+                                                <div class="col">
+                                                    <a id="ignore_a_id" class="text-reset c-pointer"
+                                                     href="javascript:void(0);" onclick="package_update_alert()">
+                                                     <i class="las la-ban fs-20 text-primary"></i>
+                                                     <span class="d-block fs-10 opacity-60">{{ translate('Ignore') }}</span>
+                                                    </a>
+                                                </div>
+                                                <div class="col">
+                                                    <a id="report_a_id" class="text-reset c-pointer"
+                                                     href="javascript:void(0);" onclick="package_update_alert()">
+                                                     <i class="las la-info-circle fs-20 text-primary"></i>
+                                                     <span class="d-block fs-10 opacity-60">{{ translate('Report') }}</span>
+                                                    </a>
+                                                </div>
+                                                  @endif
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -479,9 +513,11 @@
       $('.package_update_alert_modal').modal('show');
     }
 
-    // Express Interest
+    //express interest
+    @if (Auth::check())
     var package_validity = {{ package_validity(Auth::user()->id) }};
     var remaining_interest = {{ get_remaining_value(Auth::user()->id,'remaining_interest') }};
+    @endif
     function express_interest(id)
     {
         if( package_validity == 0 || remaining_interest < 1){
@@ -494,7 +530,6 @@
           $("#confirm_button").attr("onclick","do_express_interest("+id+")");
         }
     }
-
     function do_express_interest(id)
     {
         $("#interest_a_id_"+id).removeAttr("onclick");
@@ -519,7 +554,6 @@
           }
         );
     }
-
     // Shortlist
     function do_shortlist(id){
         $("#shortlist_a_id_"+id).removeAttr("onclick");
