@@ -39,7 +39,7 @@
                                 <th data-breakpoints="md">{{translate('Approval Status')}}</th>
                             @endif
                             <th data-breakpoints="md">{{translate('Profile Reported')}}</th>
-                            <th data-breakpoints="md">{{translate('Member Science')}}</th>
+                            <th data-breakpoints="md">{{translate('Member Since')}}</th>
                             <th data-breakpoints="md">{{translate('Member Status')}}</th>
                             <th class="text-center" width="10%">{{translate('Options')}}</th>
                         </tr>

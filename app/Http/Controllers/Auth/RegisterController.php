@@ -91,7 +91,8 @@ class RegisterController extends Controller
                 'email'       => $data['email'],
                 'password'    => Hash::make($data['password']),
                 'code'        => unique_code(),
-                'approved'    => $approval,
+                #'approved'    => $approval,
+                'approved'    => 1,
             ]);
         }
         else{
@@ -103,7 +104,8 @@ class RegisterController extends Controller
                     'phone'       => '+'.$data['country_code'].$data['phone'],
                     'password'    => Hash::make($data['password']),
                     'code'        => unique_code(),
-                    'approved'    => $approval,
+                    #'approved'    => $approval,
+                    'approved'    => 1,
                     'verification_code' => rand(100000, 999999)
                 ]);
             }
