@@ -171,7 +171,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/notification-view/{id}','NotificationController@notification_view')->name('notification_view');
 });
-
+Route::resource('/recidencies','RecidencyController');
+Route::post('/states/get_state_by_country', 'StateController@get_state_by_country')->name('states.get_state_by_country');
+    Route::post('/cities/get_cities_by_state', 'CityController@get_cities_by_state')->name('cities.get_cities_by_state');
+    
+Route::resource('/spiritual_backgrounds','SpiritualBackgroundController');
+      Route::post('/castes/get_caste_by_religion', 'CasteController@get_caste_by_religion')->name('castes.get_caste_by_religion');
+    
 // Payment gateway Redirect
 
 //Paypal START

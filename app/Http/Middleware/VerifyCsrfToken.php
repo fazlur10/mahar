@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
         //
         'aiz-uploader/upload',
         '/aiz-uploader',
-        '/stripe*'
+        '/stripe*',
+        '/castes/get_caste_by_religion'
     ];
 }
