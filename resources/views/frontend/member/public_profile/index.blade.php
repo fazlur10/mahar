@@ -1282,6 +1282,10 @@
                                                             <td class="py-1">{{ !empty($user->families->father) ? $user->families->father : "" }}</td>
                                                         </tr>
                                                         <tr>
+                                                            <th class="py-1">{{translate('Father Ocupation')}}</th>
+                                                            <td class="py-1">{{ !empty($user->families->father_job) ? $user->families->father_job : "" }}</td>
+                                                        </tr>
+                                                        <tr>
                                                             <th class="py-1">{{translate('Sibling')}}</th>
                                                             <td class="py-1">{{ !empty($user->families->sibling) ? $user->families->sibling : "" }}</td>
                                                         </tr>
@@ -1294,6 +1298,10 @@
                                                         <tr>
                                                             <th class="py-1">{{translate('Mother')}}</th>
                                                             <td class="py-1">{{ !empty($user->families->mother) ? $user->families->mother : "" }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="py-1">{{translate('Mother Occupation')}}</th>
+                                                            <td class="py-1">{{ !empty($user->families->mother_job) ? $user->families->mother_job : "" }}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

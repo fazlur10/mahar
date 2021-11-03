@@ -75,11 +75,15 @@ class FamilyController extends Controller
              'father'   => [ 'max:255'],
              'mother'   => [ 'max:255'],
              'sibling'  => [ 'max:255'],
+             'father_job'   => [ 'max:255'],
+             'mother_job'   => [ 'max:255'],
          ];
          $this->messages = [
              'father.max'   => translate('Max 255 characters'),
              'mother.max'   => translate('Max 255 characters'),
              'sibling.max'  => translate('Max 255 characters'),
+             'father_job.max'   => translate('Max 255 characters'),
+             'mother_job.max'   => translate('Max 255 characters'),
          ];
 
          $rules = $this->rules;
@@ -100,6 +104,8 @@ class FamilyController extends Controller
          $family->father    = $request->father;
          $family->mother    = $request->mother;
          $family->sibling   = $request->sibling;
+         $family->father_job    = $request->father_job;
+         $family->mother_job    = $request->mother_job;
 
          if($family->save()){
              flash(translate('Family info has been updated successfully'))->success();
