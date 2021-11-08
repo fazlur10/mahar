@@ -49,6 +49,8 @@
                                 @enderror
                             </div>
                         </div>
+                        {{--
+
                         <div class="form-group row">
                             <label class="col-md-2 col-form-label">{{translate('Date Of Birth')}}<span class="text-danger"> *</span></label>
                             <div class="col-md-9">
@@ -58,6 +60,7 @@
                                 <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
                         </div>
+                        --}}
                         @if(addon_activation('otp_system'))
                           <div class="form-group row">
                               <label class="col-md-2 col-form-label">{{translate('Phone Number')}}</label>

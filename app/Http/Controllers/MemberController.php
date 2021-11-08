@@ -47,7 +47,6 @@ class MemberController extends Controller
             'last_name'         => [ 'required','max:255'],
             'email'             => [ 'max:255','unique:users,email'],
             'gender'            => [ 'required'],
-            'date_of_birth'     => [ 'required'],
             'on_behalf'         => [ 'required'],
             'package'           => [ 'required'],
             'password'          => [ 'min:8','required_with:confirm_password','same:confirm_password'],
@@ -63,7 +62,6 @@ class MemberController extends Controller
             'email.max'                 => translate('Max 255 characters'),
             'email.unique'              => translate('Email Should be unique'),
             'gender.required'           => translate('Gender is required'),
-            'date_of_birth.required'    => translate('Gender is required'),
             'on_behalf.required'        => translate('On behalf is required'),
             'package.required'          => translate('Package is required'),
             'password.min'              => translate('Min 8 characters'),
@@ -155,7 +153,7 @@ class MemberController extends Controller
             $member->user_id                    = $user->id;
             $member->gender                     = $request->gender;
             $member->on_behalves_id             = $request->on_behalf;
-            $member->birthday                   = date('Y-m-d', strtotime($request->date_of_birth));
+            $member->birthday                   = $request->date_of_birth;
 
             $package                            = Package::where('id',$request->package)->first();
             $member->current_package_id         = $package->id;
@@ -191,6 +189,7 @@ class MemberController extends Controller
         return back();
 
     }
+    
 
     /**
      * Display the specified resource.
@@ -252,7 +251,6 @@ class MemberController extends Controller
             'first_name'    => [ 'required','max:255'],
             'last_name'     => [ 'required','max:255'],
             'gender'        => [ 'required'],
-            'date_of_birth' => [ 'required'],
             'on_behalf'     => [ 'required'],
             'marital_status'=> [ 'required'],
         ];
@@ -262,7 +260,6 @@ class MemberController extends Controller
             'last_name.required'              => translate('First Name is required'),
             'last_name.max'                   => translate('Max 255 characters'),
             'gender.required'                 => translate('Gender is required'),
-            'date_of_birth.required'          => translate('Date Of Birth is required'),
             'on_behalf.required'              => translate('On Behalf is required'),
             'marital_status.required'         => translate('Marital Status is required'),
 
@@ -277,11 +274,11 @@ class MemberController extends Controller
             flash(translate('Something went wrong'))->error();
             return Redirect::back()->withErrors($validator);
         }
+        /*
         if($request->email == null && $request->phone == null){
           flash(translate('Email and Phone number both can not be null. '))->error();
           return back();
-        }
-
+        }*/
         $user               = User::findOrFail($request->id);
         $user->first_name   = $request->first_name;
         $user->last_name    = $request->last_name;
@@ -294,7 +291,7 @@ class MemberController extends Controller
         $member                     = Member::where('user_id',$request->id)->first();
         $member->gender             = $request->gender;
         $member->on_behalves_id     = $request->on_behalf;
-        $member->birthday           = date('Y-m-d', strtotime($request->date_of_birth));
+        $member->birthday           = $request->date_of_birth;
         $member->marital_status_id  = $request->marital_status;
         $member->children           = $request->children;
 
