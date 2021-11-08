@@ -10,7 +10,7 @@
             <div class="col-md-6">
                 <label for="present_country_id">{{translate('Country')}}</label>
                 <select class="form-control aiz-selectpicker" name="present_country_id" id="present_country_id" data-live-search="true" required>
-                    <option value="">{{translate('Select One')}}</option>
+                    <option value="" disabled hidden selected>{{translate('Select One')}}</option>
                     @foreach ($countries as $country)
                         <option value="{{$country->id}}" @if($country->id == $present_country_id) selected @endif>{{$country->name}}</option>
                     @endforeach
@@ -39,6 +39,7 @@
                     <small class="form-text text-danger">{{ $message }}</small>
                 @enderror
             </div>
+            {{--
             <div class="col-md-6">
                 <label for="present_postal_code">{{translate('Postal Code')}}</label>
                 <input type="text" name="present_postal_code" value="{{$present_postal_code}}" class="form-control" placeholder="{{translate('Postal Code')}}" required>
@@ -46,6 +47,7 @@
                     <small class="form-text text-danger">{{ $message }}</small>
                 @enderror
             </div>
+            --}}
         </div>
 
 

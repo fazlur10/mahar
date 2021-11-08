@@ -7,7 +7,7 @@
         <div class="form-group">
             <label for="diet">{{translate('Mothere Tongue')}}</label>
             <select class="form-control aiz-selectpicker" name="mothere_tongue" data-live-search="true">
-                <option value="">{{translate('Select One')}}</option>
+                <option value="" disabled hidden selected>{{translate('Select One')}}</option>
                 @foreach ($languages as $language)
                     <option value="{{$language->id}}" @if($language->id == $member->member->mothere_tongue) selected @endif> {{ $language->name }} </option>
                 @endforeach
@@ -20,7 +20,6 @@
             <label for="drink">{{translate('Known Languages')}}</label>
             @php $known_languages = !empty($member->member->known_languages) ? json_decode($member->member->known_languages) : [] ; @endphp
             <select class="form-control aiz-selectpicker" name="known_languages[]" data-live-search="true" multiple>
-                <option value="">{{translate('Select')}}</option>
                 @foreach ($languages as $language)
                     <option value="{{$language->id}}" @if(in_array($language->id, $known_languages)) selected @endif >{{ $language->name }} </option>
                 @endforeach

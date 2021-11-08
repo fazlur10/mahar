@@ -23,8 +23,24 @@
         </div>
         <div class="form-group row">
             <div class="col-md-6">
-                <label for="sibling">{{translate('Sibling')}}</label>
-                <input type="text" name="sibling" value="{{ !empty($member->families->sibling) ? $member->families->sibling : "" }}" class="form-control" placeholder="{{translate('Sibling')}}" required>
+                <label for="father_job">{{translate('Father Occupation')}}</label>
+                <input type="text" name="father_job" value="{{ !empty($member->families->father_job) ? $member->families->father_job : "" }}" class="form-control" placeholder="{{translate('Fathers Ocuupation')}}" required>
+                @error('father_job')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-md-6">
+                <label for="mother_job">{{translate('Mother Occupation')}}</label>
+                <input type="text" name="mother_job" value="{{ !empty($member->families->mother_job) ? $member->families->mother_job : "" }}" placeholder="{{ translate('Mother Occupation') }}" class="form-control" required>
+                @error('mother_job')
+                    <small class="form-text text-danger">{{ $message }}</small>
+                @enderror
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-12">
+                <label for="sibling">{{translate('Siblings')}}</label>
+                <input type="text" name="sibling" value="{{ !empty($member->families->sibling) ? $member->families->sibling : "" }}" class="form-control" placeholder="{{translate('Siblings Info')}}" required>
                 @error('sibling')
                     <small class="form-text text-danger">{{ $message }}</small>
                 @enderror

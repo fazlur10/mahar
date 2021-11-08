@@ -3,7 +3,7 @@
     @php $member = \App\User::find(Auth::user()->id); @endphp
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0 h6">{{translate('Introduction')}}</h5>
+            <h5 class="mb-0 h6">{{translate('Introduction ')}}</h5>
         </div>
         <div class="card-body">
             <form action="{{ route('member.introduction.update', $member->member->id) }}" method="POST">
@@ -157,6 +157,8 @@
     @if(get_setting('member_partner_expectation_section') == 'on')
       @include('frontend.member.profile.partner_expectation')
     @endif
+
+    
 
 @endsection
 

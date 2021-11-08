@@ -7,10 +7,12 @@
             <input name="_method" type="hidden" value="PATCH">
             @csrf
             <div class="form-group row">
-                <div class="col-md-6">
-                    <label for="general">{{translate('General Requirement')}}</label>
-                    <input type="text" name="general" value="{{ !empty($member->partner_expectations->general) ? $member->partner_expectations->general : "" }}" class="form-control" placeholder="{{translate('General')}}" >
+                <div class="col-md-12">
+                    <label for="general">{{translate('Specification')}}</label>
+                    <input type="text" name="general" value="{{ !empty($member->partner_expectations->general) ? $member->partner_expectations->general : "" }}" class="form-control" placeholder="{{translate('Specification')}}" >
                 </div>
+            </div>
+            <div class="form-group row">
                 <div class="col-md-6">
                     <label for="residence_country_id">{{translate('Residence Country')}}</label>
                     @php $partner_residence_country = !empty($member->partner_expectations->residence_country_id) ? $member->partner_expectations->residence_country_id : ""; @endphp
@@ -21,6 +23,20 @@
                         @endforeach
                     </select>
                     @error('residence_country_id')
+                        <small class="form-text text-danger">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="col-md-6">
+                    <label for="pertner_complexion">{{translate('Complexion')}}</label>
+                
+                    <select id="pertner_complexion" name="pertner_complexion" class="form-control" required>
+                        <option value="{{ !empty($member->partner_expectations->complexion) ? $member->partner_expectations->complexion : "" }}" selected hidden>{{ !empty($member->partner_expectations->complexion) ? $member->partner_expectations->complexion : "Select complexion" }}</option>
+                        <option value="Very fair">Very fair</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Tanned">Tanned</option>
+                        <option value="Darker">Darker</option>
+                      </select>
+                    @error('pertner_complexion')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>
@@ -342,6 +358,7 @@
                     @enderror
                 </div>
             </div>
+             {{--
             <div class="form-group row">
                
                 <div class="col-md-6">
@@ -358,7 +375,7 @@
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
                 </div>
-               {{-- <div class="col-md-6">
+               <div class="col-md-6">
                     <label for="partner_body_type">{{translate('Body Type')}}</label>
                     <input type="text" name="partner_body_type" value="{{ !empty($member->partner_expectations->body_type) ? $member->partner_expectations->body_type : "" }}" class="form-control" placeholder="{{translate('Body Type')}}">
                     @error('partner_body_type')
@@ -371,9 +388,8 @@
                     @error('partner_personal_value')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror
-                </div>--}}
+                </div>
             </div>
-           {{--
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="partner_personal_value">{{translate('Personal Value')}}</label>

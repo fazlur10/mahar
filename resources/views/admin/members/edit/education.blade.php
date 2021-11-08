@@ -9,21 +9,19 @@
 </div>
 <table class="table">
     <tr>
-        <th>{{translate('Degree')}}</th>
-        <th>{{translate('Institution')}}</th>
-        <th>{{translate('Start')}}</th>
-        <th>{{translate('End')}}</th>
+        <th>{{translate('Qualification')}}</th>
+        <th>{{translate('Details')}}</th>
+        <th>{{translate('Institute')}}</th>
         <th>{{translate('Status')}}</th>
-        <th class="text-right">{{translate('option')}}</th>
+        <th class="text-right">{{translate('Option')}}</th>
     </tr>
 
     @php $educations = \App\Models\Education::where('user_id',$member->id)->get(); @endphp
     @foreach ($educations as $key => $education)
     <tr>
+        <td>{{ $education->type }}</td>
         <td>{{ $education->degree }}</td>
         <td>{{ $education->institution }}</td>
-        <td>{{ $education->start }}</td>
-        <td>{{ $education->end }}</td>
         <td>
             <label class="aiz-switch aiz-switch-success mb-0">
                 <input type="checkbox" id="status.{{ $key }}" onchange="update_education_present_status(this)" value="{{ $education->id }}" @if($education->present == 1) checked @endif data-switch="success"/>

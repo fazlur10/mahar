@@ -40,8 +40,8 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
-                    <label for="sibling">{{translate('Sibling')}}</label>
-                    <input type="text" name="sibling" value="{{ !empty($member->families->sibling) ? $member->families->sibling : "" }}" class="form-control" placeholder="{{translate('Sibling')}}" required>
+                    <label for="sibling">{{translate('Siblings')}}</label>
+                    <input type="text" name="sibling" value="{{ !empty($member->families->sibling) ? $member->families->sibling : "" }}" class="form-control" placeholder="{{translate('Siblings Info')}}" required>
                     @error('sibling')
                         <small class="form-text text-danger">{{ $message }}</small>
                     @enderror

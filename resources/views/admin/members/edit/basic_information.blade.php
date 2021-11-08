@@ -32,6 +32,7 @@
                     <span class="text-danger">*</span>
                 </label>
                 <select class="form-control aiz-selectpicker" name="gender" required>
+                    <option value="" disabled hidden @if($member->member->gender ==  NULL) selected @endif >{{translate('Select one')}}</option>
                     <option value="1" @if($member->member->gender ==  1) selected @endif >{{translate('Male')}}</option>
                     <option value="2" @if($member->member->gender ==  2) selected @endif >{{translate('Female')}}</option>
                     @error('gender')
@@ -74,6 +75,7 @@
                     <span class="text-danger">*</span>
                 </label>
                 <select class="form-control aiz-selectpicker" name="on_behalf" data-live-search="true" required>
+                    <option value="" disabled hidden selected>{{translate('Select One')}}</option>
                     @foreach ($on_behalves as $on_behalf)
                         <option value="{{$on_behalf->id}}" @if($member->member->on_behalves_id == $on_behalf->id) selected @endif>{{$on_behalf->name}}</option>
                     @endforeach
@@ -89,6 +91,7 @@
                     <span class="text-danger">*</span>
                 </label>
                 <select class="form-control aiz-selectpicker" name="marital_status" data-live-search="true" required>
+                    <option value="" disabled hidden selected>{{translate('Select One')}}</option>
                     @foreach ($marital_statuses as $marital_status)
                         <option value="{{$marital_status->id}}" @if($member->member->marital_status_id == $marital_status->id) selected @endif>{{$marital_status->name}}</option>
                     @endforeach
@@ -99,7 +102,6 @@
             </div>
             <div class="col-md-6">
                 <label for="first_name" >{{translate('Number Of Children')}}
-                    <span class="text-danger">*</span>
                 </label>
                 <input type="text" name="children" value="{{ $member->member->children }}" class="form-control" placeholder="{{translate('Number Of Children')}}" >
             </div>

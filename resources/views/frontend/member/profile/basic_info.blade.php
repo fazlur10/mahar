@@ -83,6 +83,7 @@
                         <span class="text-danger">*</span>
                     </label>
                     <select class="form-control aiz-selectpicker" name="marital_status" data-live-search="true" required>
+                        <option value="" disabled hidden selected>{{translate('Select One')}}</option>
                         @foreach ($marital_statuses as $marital_status)
                             <option value="{{$marital_status->id}}" @if($member->member->marital_status_id == $marital_status->id) selected @endif>{{$marital_status->name}}</option>
                         @endforeach
