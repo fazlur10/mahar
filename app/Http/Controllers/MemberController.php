@@ -292,6 +292,7 @@ class MemberController extends Controller
         $member->gender             = $request->gender;
         $member->on_behalves_id     = $request->on_behalf;
         $member->birthday           = $request->date_of_birth;
+       // $member->birthday           = date('Y-m-d', strtotime($request->date_of_birth));
         $member->marital_status_id  = $request->marital_status;
         $member->children           = $request->children;
 
