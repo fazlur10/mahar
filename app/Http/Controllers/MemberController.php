@@ -16,6 +16,10 @@ use App\Models\FamilyValue;
 use App\Models\MaritalStatus;
 use App\Models\OnBehalf;
 use App\Models\Wallet;
+use App\Models\PhysicalAttribute;
+use App\Models\Address;
+use App\Models\SpiritualBackground;
+use App\Models\Family;
 use App\User;
 use Hash;
 use Validator;
@@ -253,6 +257,22 @@ class MemberController extends Controller
             'gender'        => [ 'required'],
             'on_behalf'     => [ 'required'],
             'marital_status'=> [ 'required'],
+            'height'       => [ 'required','max:250'],
+            'weight'       => [ 'required','max:250'],
+            'complexion'   => [ 'required','max:250'],
+            'present_country_id'   => [ 'required'],
+            'present_state_id'     => [ 'required'],
+            'present_city_id'      => [ 'required'],
+            'member_religion_id'   => [ 'max:255'],
+            'member_caste_id'      => [ 'max:255'],
+            'ethnicity'            => [ 'max:255'],
+            'personal_value'       => [ 'max:255'],
+            'community_value'      => [ 'max:255'],
+            'father'   => [ 'max:255'],
+            'mother'   => [ 'max:255'],
+            'sibling'  => [ 'max:255'],
+            'father_job'   => [ 'max:255'],
+            'mother_job'   => [ 'max:255'],
         ];
         $this->messages = [
             'first_name.required'             => translate('First Name is required'),
@@ -262,7 +282,24 @@ class MemberController extends Controller
             'gender.required'                 => translate('Gender is required'),
             'on_behalf.required'              => translate('On Behalf is required'),
             'marital_status.required'         => translate('Marital Status is required'),
-
+            'height.required'      => translate('Height is required'),
+            'weight'       => [ 'required','max:250'],
+            'complexion'   => [ 'required','max:250'],
+            'present_country_id.required'  => translate('Country is required'),
+            'present_state_id.required'    => translate('State Name is required'),
+            'present_city_id.required'     => translate('City Name is required'),
+            'member_religion_id.required'   => translate('Max 255 characters'),
+            'member_religion_id.max'        => translate('Max 255 characters'),
+            //'member_caste_id.required'      => translate('Caste is required'),
+            'member_caste_id.max'           => translate('Max 255 characters'),
+            'ethnicity.max'                 => translate('Max 255 characters'),
+            'personal_value.max'            => translate('Max 255 characters'),
+            'community_value.max'           => translate('Max 255 characters'),
+            'father.max'   => translate('Max 255 characters'),
+            'mother.max'   => translate('Max 255 characters'),
+            'sibling.max'  => translate('Max 255 characters'),
+            'father_job.max'   => translate('Max 255 characters'),
+            'mother_job.max'   => translate('Max 255 characters'),
 
         ];
 
@@ -298,13 +335,97 @@ class MemberController extends Controller
 
         if($member->save())
         {
-            flash('Member basic info  has been updated successfully')->success();
-            return back();
+             $physical_attribute = PhysicalAttribute::where('user_id', $id)->first();
+             if(empty($physical_attribute)){
+                 $physical_attribute = new PhysicalAttribute;
+                 $physical_attribute->user_id = $id;
+                }
+             $physical_attribute->height        = $request->height;
+             $physical_attribute->weight        = $request->weight;
+             $physical_attribute->complexion    = $request->complexion;
+         
+             if($physical_attribute->save()){
+                   $address_type = $request->address_type;
+                   $address = Address::where('user_id', $id)->where('type',$request->address_type)->first();
+                   if(empty($address)){
+                       $address = new Address;
+                       $address->user_id = $id;
+                    }
+                    if($address_type == 'present'){
+                        $address->country_id   = $request->present_country_id;
+                        $address->state_id     = $request->present_state_id;
+                        $address->city_id      = $request->present_city_id;
+                    }
+                    elseif($address_type == 'permanent'){
+                         $address->country_id   = $request->permanent_country_id;
+                         $address->state_id     = $request->permanent_state_id;
+                         $address->city_id      = $request->permanent_city_id;
+                         // removed $address->postal_code  = $request->permanent_postal_code;
+                        }
+                    $address->type             = $address_type;
+        
+                    if($address->save()){
+                        $member                     = Member::where('user_id',$request->id)->first();
+                        $member->mothere_tongue     = $request->mothere_tongue;
+                        $member->known_languages    = $request->known_languages;
+                
+                        if($member->save())
+                        {
+                            $spiritual_backgrounds = SpiritualBackground::where('user_id', $id)->first();
+                            if(empty($spiritual_backgrounds)){
+                                 $spiritual_backgrounds          = new SpiritualBackground;
+                                 $spiritual_backgrounds->user_id = $id;
+                                }
+                            $spiritual_backgrounds->religion_id        = $request->member_religion_id;
+                            $spiritual_backgrounds->caste_id           = $request->member_caste_id;
+                            $spiritual_backgrounds->sub_caste_id       = $request->member_sub_caste_id;
+                            $spiritual_backgrounds->ethnicity	       = $request->ethnicity;
+                            $spiritual_backgrounds->personal_value	   = $request->personal_value;
+                            $spiritual_backgrounds->family_value_id	   = $request->family_value_id;
+                            $spiritual_backgrounds->community_value	   = $request->community_value;
+        
+                            if($spiritual_backgrounds->save()){
+                                $family = Family::where('user_id', $id)->first();
+                                if(empty($family)){
+                                    $family           = new Family;
+                                    $family->user_id  = $id;
+                                }
+                                $family->father    = $request->father;
+                                $family->mother    = $request->mother;
+                                $family->sibling   = $request->sibling;
+                                $family->father_job    = $request->father_job;
+                                $family->mother_job    = $request->mother_job;
+                                if($family->save()){
+                                    flash(translate('User info has been updated successfully'))->success();
+                                    return back();
+                                }
+                                else {
+                                    flash(translate('Sorry! Something went wrong.'))->error();
+                                    return back();
+                                }
+                            }
+                            else {
+                                flash(translate('Sorry! Something went wrong.'))->error();
+                                return back();
+                            }
+                        }
+                        flash('Sorry! Something went wrong.')->error();
+                        return back();
+                    }
+                    else {
+                        flash(translate('Sorry! Something went wrong.'))->error();
+                        return back();
+                    }
+                }
+            else {
+                 flash(translate('Sorry! Something went wrong.'))->error();
+                 return back();
+                }
         }
         flash('Sorry! Something went wrong.')->error();
         return back();
 
-    }
+     }
 
     public function language_info_update(Request $request, $id)
     {

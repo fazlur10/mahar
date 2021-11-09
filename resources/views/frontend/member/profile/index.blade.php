@@ -1,6 +1,25 @@
 @extends('frontend.layouts.member_panel')
 @section('panel_content')
     @php $member = \App\User::find(Auth::user()->id); @endphp
+    @php
+    $present_address      = \App\Models\Address::where('type','present')->where('user_id',$member->id)->first();
+    $present_country_id   = !empty($present_address->country_id) ? $present_address->country_id : "";
+    $present_state_id     = !empty($present_address->state_id) ? $present_address->state_id : "";
+    $present_city_id      = !empty($present_address->city_id) ? $present_address->city_id : "";
+    $present_postal_code  = !empty($present_address->postal_code) ? $present_address->postal_code : "";
+    @endphp
+      @php
+      $member_religion_id   = !empty($member->spiritual_backgrounds->religion_id) ? $member->spiritual_backgrounds->religion_id : "";
+      $member_caste_id      = !empty($member->spiritual_backgrounds->caste_id) ? $member->spiritual_backgrounds->caste_id : "";
+      $member_sub_caste_id  = !empty($member->spiritual_backgrounds->sub_caste_id) ? $member->spiritual_backgrounds->sub_caste_id : "";
+  @endphp
+    @php
+    $partner_religion_id   = !empty($member->partner_expectations->religion_id) ? $member->partner_expectations->religion_id : "";
+    $partner_caste_id      = !empty($member->partner_expectations->caste_id) ? $member->partner_expectations->caste_id : "";
+    $partner_sub_caste_id  = !empty($member->partner_expectations->sub_caste_id) ? $member->partner_expectations->sub_caste_id : "";
+    $partner_country_id    = !empty($member->partner_expectations->preferred_country_id) ? $member->partner_expectations->preferred_country_id : "";
+    $partner_state_id      = !empty($member->partner_expectations->preferred_state_id) ? $member->partner_expectations->preferred_state_id : "";
+@endphp
     <div class="card">
         <div class="card-header">
             <h5 class="mb-0 h6">{{translate('Introduction ')}}</h5>
@@ -58,22 +77,16 @@
     <!-- Basic Information -->
     @include('frontend.member.profile.basic_info')
     
-     <!-- Physical Attributes -->
+     <!-- Physical Attributes -->{{--
     @if(get_setting('member_physical_attributes_section') == 'on')
       @include('frontend.member.profile.physical_attributes')
-    @endif
+    @endif--}}
 
-    <!-- Present Address -->
-    @php
-        $present_address      = \App\Models\Address::where('type','present')->where('user_id',$member->id)->first();
-        $present_country_id   = !empty($present_address->country_id) ? $present_address->country_id : "";
-        $present_state_id     = !empty($present_address->state_id) ? $present_address->state_id : "";
-        $present_city_id      = !empty($present_address->city_id) ? $present_address->city_id : "";
-        $present_postal_code  = !empty($present_address->postal_code) ? $present_address->postal_code : "";
-    @endphp
+    <!-- Present Address -->{{--
+  
     @if(get_setting('member_present_address_section') == 'on')
       @include('frontend.member.profile.present_address')
-    @endif
+    @endif--}}
 
     <!-- Education -->
     @if(get_setting('member_education_section') == 'on')
@@ -87,47 +100,45 @@
 
    
 
-    <!-- Language -->
+    <!-- Language -->{{--
     @if(get_setting('member_language_section') == 'on')
       @include('frontend.member.profile.language')
-    @endif
+    @endif--}}
 
-    <!-- Hobbies  -->
+    <!-- Hobbies  -->{{--
     @if(get_setting('member_hobbies_and_interests_section') == 'on')
       @include('frontend.member.profile.hobbies_interest')
-    @endif
+    @endif--}}
 
-      <!-- Life Style -->
+      <!-- Life Style -->{{--
       @if(get_setting('member_life_style_section') == 'on')
       @include('frontend.member.profile.lifestyle')
-    @endif
+    @endif--}}
 
-    <!-- Personal Attitude & Behavior -->
+    <!-- Personal Attitude & Behavior -->{{--
     @if(get_setting('member_personal_attitude_and_behavior_section') == 'on')
       @include('frontend.member.profile.attitudes_behavior')
-    @endif
+    @endif--}}
 
-    <!-- Residency Information -->
+    <!-- Residency Information -->{{--
     @if(get_setting('member_residency_information_section') == 'on')
       @include('frontend.member.profile.residency_information')
-    @endif
+    @endif--}}
 
     <!-- Spiritual & Social Background -->
-    @php
-        $member_religion_id   = !empty($member->spiritual_backgrounds->religion_id) ? $member->spiritual_backgrounds->religion_id : "";
-        $member_caste_id      = !empty($member->spiritual_backgrounds->caste_id) ? $member->spiritual_backgrounds->caste_id : "";
-        $member_sub_caste_id  = !empty($member->spiritual_backgrounds->sub_caste_id) ? $member->spiritual_backgrounds->sub_caste_id : "";
-    @endphp
+  {{--
     @if(get_setting('member_spiritual_and_social_background_section') == 'on')
       @include('frontend.member.profile.spiritual_backgrounds')
-    @endif
+    @endif--}}
 
   
 
+    {{--
     <!-- Astronomic Information  -->
     @if(get_setting('member_astronomic_information_section') == 'on')
       @include('frontend.member.profile.astronomic_information')
     @endif
+    --}}
 
     <!-- Permanent Address -->
     @php
@@ -142,18 +153,14 @@
     @endif
 
     <!-- Family Information -->
+    {{--
     @if(get_setting('member_family_information_section') == 'on')
       @include('frontend.member.profile.family_information')
     @endif
+    --}}
 
     <!-- Partner Expectation -->
-    @php
-        $partner_religion_id   = !empty($member->partner_expectations->religion_id) ? $member->partner_expectations->religion_id : "";
-        $partner_caste_id      = !empty($member->partner_expectations->caste_id) ? $member->partner_expectations->caste_id : "";
-        $partner_sub_caste_id  = !empty($member->partner_expectations->sub_caste_id) ? $member->partner_expectations->sub_caste_id : "";
-        $partner_country_id    = !empty($member->partner_expectations->preferred_country_id) ? $member->partner_expectations->preferred_country_id : "";
-        $partner_state_id      = !empty($member->partner_expectations->preferred_state_id) ? $member->partner_expectations->preferred_state_id : "";
-    @endphp
+  
     @if(get_setting('member_partner_expectation_section') == 'on')
       @include('frontend.member.profile.partner_expectation')
     @endif
