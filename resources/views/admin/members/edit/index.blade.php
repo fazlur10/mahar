@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-3">
                             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <a class="nav-link active" id="v-pills-tab-1" data-toggle="pill" href="#introduction" role="tab" aria-controls="v-pills-home" aria-selected="true">{{translate('Introduction')}}</a>
+                                <a class="nav-link active" id="v-pills-tab-1" data-toggle="pill" href="#introduction" role="tab" aria-controls="v-pills-home" aria-selected="true">{{translate('Other Info & Remarks')}}</a>
                                 <a class="nav-link" id="v-pills-tab-2" data-toggle="pill" href="#basic_information" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{translate('Basic Information')}}</a>
                                 @if(get_setting('member_present_address_section') == 'on')
                                 <a class="nav-link" id="v-pills-tab-3" data-toggle="pill" href="#present_address" role="tab" aria-controls="v-pills-messages" aria-selected="false">{{translate('Present Address')}}</a>
